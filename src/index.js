@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const PORT = 4000;
 
+// middlewares
+app.use(express.json());
+
 app.get("/", (req, res) => {
   //   res.send("Jesus Fernandez");
 
@@ -20,6 +23,18 @@ app.get("/busqueda", (req, res) => {
     query_nombre: nombre,
     query_edad: edad,
     query_apellido: apellido,
+  });
+});
+
+app.get("/cuerpo", (req, res) => {
+  const { nombre, edad, apellido } = req.body;
+
+  return res.json({
+    msg: "Estas en la ruta cuerpo",
+    data: "Datos recibidos",
+    cuerpo_nombre: nombre,
+    cuerpo_apellido: apellido,
+    cuerpo_edad: edad,
   });
 });
 
