@@ -8,6 +8,38 @@ const fs = require("fs");
 // middlewares
 app.use(express.json());
 
+app.get("/ejercicio", (req, res) => {
+  const { nombre_archivo } = req.body;
+
+  fs.readFile(nombre_archivo, "utf-8", (error, data) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(data);
+    }
+  });
+
+  return res.json({
+    msg: "Archivo leido",
+  });
+});
+
+app.post("/ejercicio", (req, res) => {
+  const { nombre_archivo, contenido_archivo } = req.body;
+
+  fs.writeFile(nombre_archivo, contenido_archivo, (error) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Archivo creado");
+    }
+  });
+
+  return res.json({
+    msg: "Archivo creado",
+  });
+});
+
 app.get("/usuarios", (req, res) => {
   return res.json({
     msg: "Usuarios obtenidos",
