@@ -2,53 +2,57 @@ const express = require("express");
 const app = express();
 const PORT = 4000;
 
+// Importaciones
+const fs = require("fs");
+
 // middlewares
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  //   res.send("Jesus Fernandez");
-
+app.get("/usuarios", (req, res) => {
   return res.json({
-    msg: "Nombre recibido",
-    data: "Jesus Fernandez",
+    msg: "Usuarios obtenidos",
   });
 });
 
-// Los query params se usan mucho para realizar busquedas
-app.get("/busqueda", (req, res) => {
-  const { nombre, edad, apellido } = req.query;
-
+app.post("/usuarios", (req, res) => {
   return res.json({
-    msg: "Busqueda realizada",
-    data: "datos de prueba",
-    query_nombre: nombre,
-    query_edad: edad,
-    query_apellido: apellido,
+    msg: "Usuario creado",
   });
 });
 
-// Este se usa mas para crear elementos con el metodo post o para actualizar un elemento con el metodo put
-app.get("/cuerpo", (req, res) => {
-  const { nombre, edad, apellido } = req.body;
-
+app.put("/usuarios", (req, res) => {
   return res.json({
-    msg: "Estas en la ruta cuerpo",
-    data: "Datos recibidos",
-    cuerpo_nombre: nombre,
-    cuerpo_apellido: apellido,
-    cuerpo_edad: edad,
+    msg: "Usuario actualizado",
   });
 });
 
-// Este se puede usar para realizar busqueda de algun elemento por el id
-app.get("/:id/:nombre", (req, res) => {
-  const { id, nombre } = req.params;
-
+app.delete("/usuarios", (req, res) => {
   return res.json({
-    msg: "Id recibido",
-    data: "Jesus",
-    el_id: id,
-    el_nombre: nombre,
+    msg: "Usuario eliminado",
+  });
+});
+
+app.get("/productos", (req, res) => {
+  return res.json({
+    msg: "Productos obtenidos",
+  });
+});
+
+app.post("/productos", (req, res) => {
+  return res.json({
+    msg: "Producto creado",
+  });
+});
+
+app.put("/productos", (req, res) => {
+  return res.json({
+    msg: "Producto actualizado",
+  });
+});
+
+app.delete("/productos", (req, res) => {
+  return res.json({
+    msg: "Producto eliminado",
   });
 });
 
