@@ -14,6 +14,7 @@ app.get("/", (req, res) => {
   });
 });
 
+// Los query params se usan mucho para realizar busquedas
 app.get("/busqueda", (req, res) => {
   const { nombre, edad, apellido } = req.query;
 
@@ -26,6 +27,7 @@ app.get("/busqueda", (req, res) => {
   });
 });
 
+// Este se usa mas para crear elementos con el metodo post o para actualizar un elemento con el metodo put
 app.get("/cuerpo", (req, res) => {
   const { nombre, edad, apellido } = req.body;
 
@@ -38,6 +40,7 @@ app.get("/cuerpo", (req, res) => {
   });
 });
 
+// Este se puede usar para realizar busqueda de algun elemento por el id
 app.get("/:id/:nombre", (req, res) => {
   const { id, nombre } = req.params;
 
