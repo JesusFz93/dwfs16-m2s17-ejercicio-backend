@@ -2,89 +2,53 @@ const express = require("express");
 const app = express();
 const PORT = 4000;
 
-// Importaciones
-const fs = require("fs");
-
 // middlewares
 app.use(express.json());
 
-app.get("/ejercicio", (req, res) => {
-  const { nombre_archivo } = req.body;
-
-  fs.readFile(nombre_archivo, "utf-8", (error, data) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(data);
-    }
-  });
+app.get("/", (req, res) => {
+  //   res.send("Jesus Fernandez");
 
   return res.json({
-    msg: "Archivo leido",
+    msg: "Nombre recibido",
+    data: "Jesus Fernandez",
   });
 });
 
-app.post("/ejercicio", (req, res) => {
-  const { nombre_archivo, contenido_archivo } = req.body;
-
-  fs.writeFile(nombre_archivo, contenido_archivo, (error) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Archivo creado");
-    }
-  });
+// Los query params se usan mucho para realizar busquedas
+app.get("/busqueda", (req, res) => {
+  const { nombre, edad, apellido } = req.query;
 
   return res.json({
-    msg: "Archivo creado",
+    msg: "Busqueda realizada",
+    data: "datos de prueba",
+    query_nombre: nombre,
+    query_edad: edad,
+    query_apellido: apellido,
   });
 });
 
-app.get("/usuarios", (req, res) => {
+// Este se usa mas para crear elementos con el metodo post o para actualizar un elemento con el metodo put
+app.get("/cuerpo", (req, res) => {
+  const { nombre, edad, apellido } = req.body;
+
   return res.json({
-    msg: "Usuarios obtenidos",
+    msg: "Estas en la ruta cuerpo",
+    data: "Datos recibidos",
+    cuerpo_nombre: nombre,
+    cuerpo_apellido: apellido,
+    cuerpo_edad: edad,
   });
 });
 
-app.post("/usuarios", (req, res) => {
-  return res.json({
-    msg: "Usuario creado",
-  });
-});
+// Este se puede usar para realizar busqueda de algun elemento por el id
+app.get("/:id/:nombre", (req, res) => {
+  const { id, nombre } = req.params;
 
-app.put("/usuarios", (req, res) => {
   return res.json({
-    msg: "Usuario actualizado",
-  });
-});
-
-app.delete("/usuarios", (req, res) => {
-  return res.json({
-    msg: "Usuario eliminado",
-  });
-});
-
-app.get("/productos", (req, res) => {
-  return res.json({
-    msg: "Productos obtenidos",
-  });
-});
-
-app.post("/productos", (req, res) => {
-  return res.json({
-    msg: "Producto creado",
-  });
-});
-
-app.put("/productos", (req, res) => {
-  return res.json({
-    msg: "Producto actualizado",
-  });
-});
-
-app.delete("/productos", (req, res) => {
-  return res.json({
-    msg: "Producto eliminado",
+    msg: "Id recibido",
+    data: "Jesus",
+    el_id: id,
+    el_nombre: nombre,
   });
 });
 
